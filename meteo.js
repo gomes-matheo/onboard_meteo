@@ -41,20 +41,27 @@ async function fetchWeatherApi(town, latitude, longitude) {
       "&lon=" +
       longitude +
       "&appid=" +
-      apiKey;
-    +"&lang=" + lang;
+      apiKey +
+      "&units=" +
+      mesureUnits +
+      "&lang=" +
+      lang;
   } else {
     console.log("No latitude or longitude found");
     apiUrl =
       "https://api.openweathermap.org/data/2.5/weather?q=" +
       town +
       "&appid=" +
-      apiKey;
-    +"&lang=" + lang;
+      apiKey +
+      "&units=" +
+      mesureUnits +
+      "&lang=" +
+      lang;
   }
 
   //+"&units=metric";   //METRIC DONT WORK ?
 
+  console.log(apiUrl);
   try {
     //GET PROMISE AND WAIT FOR SERVER RESPONSE
     const weatherInfos = await fetch(apiUrl);
@@ -135,15 +142,13 @@ async function main() {
   const weatherIcon = weatherApiInfos.weather[0].icon;
   console.log("Icon code is : " + weatherIcon);
 
-  //API TEMPERATURE INFOS + WE NEED TO CONVERT KELVIN TO CELSIUS
+  //API TEMPERATURE INFOS
   const temperature = weatherApiInfos.main.temp;
-  const celsiusTemp = (temperature - 273.15).toFixed(2);
-  console.log("Temperature is : " + celsiusTemp);
+  console.log("Temperature is : " + temperature);
 
   //API FELT TEMPERATURE INFOS + WE NEED TO CONVERT KELVIN TO CELSIUS
   const temperatureFelt = weatherApiInfos.main.feels_like;
-  const temperatureFeltCelsius = (temperatureFelt - 273.15).toFixed(2);
-  console.log("Felt temperature is : " + temperatureFeltCelsius);
+  console.log("Felt temperature is : " + temperatureFelt);
 
   //API HUMIDITY INFOS
   const humidity = weatherApiInfos.main.humidity;
@@ -160,9 +165,8 @@ async function main() {
   document.getElementById("WeatherIcon").src =
     "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png";
   setInterval(updateTime, 1000);
-  document.getElementById("TemperatureInfo").innerHTML = celsiusTemp + "°C";
-  document.getElementById("FeltTemperature").innerHTML =
-    temperatureFeltCelsius + "°C";
+  document.getElementById("TemperatureInfo").innerHTML = temperature + "°C";
+  document.getElementById("FeltTemperature").innerHTML = temperatureFelt + "°C";
   document.getElementById("HumidityInfos").innerHTML = humidity + "%";
   document.getElementById("WindSpeed").innerHTML =
     (windSpeed * 2.769).toFixed(2) + "Km/h";
