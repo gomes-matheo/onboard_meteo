@@ -27,14 +27,32 @@ async function fetchConfigFile() {
 }
 
 //ASYNC FUNCTION FOR FETCHING WEATHER API FROM "openweathermap.com"
-async function fetchWeatherApi(town) {
+async function fetchWeatherApi(town, latitude, longitude) {
   const mesureUnits = "metric";
+  const lang = "fr"; //OR EN FOR ENGLISH
   const apiKey = "72b86c523ab4533f085efceb8ce41edf";
-  const apiUrl =
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
-    town +
-    "&appid=" +
-    apiKey;
+  let apiUrl;
+
+  if ((!latitude && longitude === null) || latitude || longitude === null) {
+    console.log("Latitude and longitude are defined");
+    apiUrl =
+      "https://api.openweathermap.org/data/2.5/weather?lat=" +
+      latitude +
+      "&lon=" +
+      longitude +
+      "&appid=" +
+      apiKey;
+    +"&lang=" + lang;
+  } else {
+    console.log("No latitude or longitude found");
+    apiUrl =
+      "https://api.openweathermap.org/data/2.5/weather?q=" +
+      town +
+      "&appid=" +
+      apiKey;
+    +"&lang=" + lang;
+  }
+
   //+"&units=metric";   //METRIC DONT WORK ?
 
   try {
@@ -76,8 +94,24 @@ function updateTime() {
   const currentTime = currentHour + ":" + currentMinute + ":" + currentSecond;
 
   //DISPLAY TIME INFOS
-  document.getElementById("timeInfo").innerHTML =
-    "Current Time : " + currentTime;
+  document.getElementById("timeInfo").innerHTML = currentTime;
+
+  if (
+    currentDay.currentHour === 0 &&
+    currentMinute === 0 &&
+    currentSecond === 0
+  )
+    currentDate();
+}
+
+//USER DATE FROM LOCAL
+function currentDate() {
+  const today = new Date();
+  const day = String(today.getDay()).padStart(2, "0");
+  const month = String(today.getMonth()).padStart(2, "0");
+  const year = today.getFullYear();
+  document.getElementById("todayDate").innerHTML =
+    day + "/" + month + "/" + year;
 }
 
 //MAIN FUNCTION TO EXECUTE ALL HTML MODIFICATION, FETCH, ETC
@@ -86,38 +120,45 @@ async function main() {
 
   //CONFIG FILE INFOS
   const jsonConfigMain = await fetchConfigFile();
-  town = jsonConfigMain.town;
+  const town = jsonConfigMain.town;
+  const latitude = jsonConfigMain.latitude_optional;
+  const longitude = jsonConfigMain.longitude_optionnal;
   console.log("Successfully parsed config.json infos : " + town);
 
   //API ACCESS INFOS
   console.log("Testing API...");
-  const weatherApiInfos = await fetchWeatherApi(town);
+  const weatherApiInfos = await fetchWeatherApi(town, latitude, longitude);
 
   //API WEATHER INFOS
-  weatherDesc = weatherApiInfos.weather[0].description;
+  const weatherDesc = weatherApiInfos.weather[0].description;
   console.log("Weather is : " + weatherDesc);
+  const weatherIcon = weatherApiInfos.weather[0].icon;
+  console.log("Icon code is : " + weatherIcon);
 
   //API TEMPERATURE INFOS + WE NEED TO CONVERT KELVIN TO CELSIUS
-  temperature = weatherApiInfos.main.temp;
-  celsiusTemp = (temperature - 273.15).toFixed(2);
+  const temperature = weatherApiInfos.main.temp;
+  const celsiusTemp = (temperature - 273.15).toFixed(2);
   console.log("Temperature is : " + celsiusTemp);
 
   //API FELT TEMPERATURE INFOS + WE NEED TO CONVERT KELVIN TO CELSIUS
-  temperatureFelt = weatherApiInfos.main.feels_like;
-  temperatureFeltCelsius = (temperatureFelt - 273.15).toFixed(2);
+  const temperatureFelt = weatherApiInfos.main.feels_like;
+  const temperatureFeltCelsius = (temperatureFelt - 273.15).toFixed(2);
   console.log("Felt temperature is : " + temperatureFeltCelsius);
 
   //API HUMIDITY INFOS
-  humidity = weatherApiInfos.main.humidity;
+  const humidity = weatherApiInfos.main.humidity;
   console.log(humidity + "%");
 
   //API WIND INFOS
-  windSpeed = weatherApiInfos.wind.speed;
+  const windSpeed = weatherApiInfos.wind.speed;
   console.log("Wind speed is : " + windSpeed);
 
   //SET INFOS TO HTML BODY FROM IDS
   document.getElementById("TownInfo").innerHTML = town;
+  currentDate();
   document.getElementById("MeteoInfo").innerHTML = weatherDesc;
+  document.getElementById("WeatherIcon").src =
+    "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png";
   setInterval(updateTime, 1000);
   document.getElementById("TemperatureInfo").innerHTML = celsiusTemp + "°C";
   document.getElementById("FeltTemperature").innerHTML =

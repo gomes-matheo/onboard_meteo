@@ -1,18 +1,32 @@
 body {
+    /*Visual Properties*/
     background-image: url(medias/images/clouds_background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    /*Size Properties*/
+
+    /*Text Properties*/
+
+    /*Placement Properties*/
 }
 
 .MeteoCardContainer {
+    /*Visual Properties*/
+
+    /*Size Properties*/
     height: 95vh;
-    
+
+    /*Text Properties*/
+
+    /*Placement Properties*/
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .MeteoCard {
+
+    /*Visual Properties*/
     background: linear-gradient((rgba(116, 86, 146, 0.30), rgba(253, 236, 218, 0.30)));
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -20,41 +34,80 @@ body {
     -webkit-backdrop-filter: blur(8.6px);
     border: 1px solid rgba(0, 0, 0, 0.30);
 
-    width: 500px;
-    height: 500px;
+    /*Size Properties*/
+    padding: 10px;
 
+    /*Text Properties*/
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    display: flexbox;
-    justify-content: center;
-    align-content: center;
-    
+    /*Placement properties*/
+    display: inline-flex;
+    flex-direction: column;
 }
 
-.LowerInfos {
-    display: flexbox;
-    justify-self: center;
+.GlobalInfosBlock {
+    /*Visual Properties*/
+    /*Size Properties*/
+    /*Text Properties*/
+    /*Placement Properties*/
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
 }
 
 .Container {
 
-    margin: 3px;
-
-    width: 200px;
-    justify-self: center;
-    
-    padding: 1px;
-
+    /*Visual Properties*/
     border-radius: 50px;
-
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.6px);
 
-    border-radius: 50px;
+    /*Size Properties*/
+    padding: 0px 5px 0px 5px;
+
+    /*Text Properties*/
+
+    /*Placement Properties*/
 }
 
-.LowerInfos {
-    display: flex;
-    justify-content: space-between;
+.InfoBlock {
+    /*Visual Properties*/
+    /*Size Properties*/
+    /*Text Properties*/
+    /*Placement Properties*/
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.WeatherInfos {
+    /*Visual Properties*/
+    /*Size Properties*/
+    margin: 10px;
+    /*Text Properties*/
+    /*Placement Properties*/
+    display: inline;
+    justify-content: center;
+    align-content: center;
+}
+
+.Divider {
+    width: 90%;
+    border: rgba(0, 0, 0, 0.2) solid 1px;
+    border-radius: 1px;
+
+}
+
+.OtherInfos {
+    /*Visual Properties*/
+
+    /*Size Properties*/
+    width: auto;
+    /*Text Properties*/
+
+    /*Placement Properties*/
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-around;
 }

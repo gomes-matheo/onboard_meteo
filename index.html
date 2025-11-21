@@ -12,27 +12,54 @@
     <div class="MeteoCardContainer">
         <div class="MeteoCard">
             
-            <div class="Container">
-                <h1 id="TownInfo">EXAMPLE</h1>
-            </div>
-            <div class="Container">
-                <h2 id="MeteoInfo">Weather : ???</h2>
-            </div>
-            <div class="Container">
-                <h2 id="timeInfo">Time : 12:00</h2>
-            </div>
-            <div class="LowerInfos">
-                <div class="Container">
-                    <h3>Temperature :</h3>
-                    <h3 id="TemperatureInfo">0°C</h3>
+            <!--Global infos block-->
+            <div class="GlobalInfosBlock Container">
+                <!--Town infos-->
+                <div>
+                    <h1 id="TownInfo">EXAMPLE</h1>
                 </div>
-                <div class="Container">
-                    <h3> Felt Temperature :</h3>
-                    <h3 id="FeltTemperature">0°C</h3>
+                <!--Date infos-->
+                <div>
+                    <h2 id="todayDate">Today, Day, Month, year</h2>
                 </div>
             </div>
-            <div class="LowerInfos">
-                <div class="Container">
+            <hr class="Divider">
+            <!--Global weather infos-->
+            <div class="InfoBlock">
+                <!--Weather info and icon-->
+                <div class="WeatherInfos Container">
+                    <div class="Icon">
+                        <img src="https://openweathermap.org/img/wn/01n@2x.png" alt="" id="WeatherIcon">
+                    </div>
+                    <div>
+                        <h2 id="MeteoInfo">Weather : ???</h2>
+                    </div>
+                    <hr class="Divider">
+                    <!--Current time-->
+                    <div>
+                        <h3>Current time : </h3>
+                        <h3 id="timeInfo">12:00</h3>
+                    </div>
+                </div>
+                <!--Temperature and felt temperature-->
+                <div class="WeatherInfos Container">
+                    <div>
+                        <h3>Temperature :</h3>
+                        <h2 id="TemperatureInfo">0°C</h2>
+                    </div>
+                    <hr class="Divider">
+                    <div>
+                        <h3> Felt Temperature :</h3>
+                        <h2 id="FeltTemperature">0°C</h2>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="Divider">
+            
+            <!--Complementary informations-->
+            <div class="OtherInfos">
+                <div class=" Container">
                     <h3>Humidity :</h3>
                     <h3 id="HumidityInfos">0°C</h3>
                 </div>
